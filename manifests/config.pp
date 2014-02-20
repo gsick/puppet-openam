@@ -12,7 +12,7 @@
 #
 
 class openam::config {
-  $server_url = "${openam::server_protocol}://${fqdn}:${openam::server_port}"
+  $server_url = "${openam::server_protocol}://${host}:${openam::server_port}"
  
   package { "perl-Crypt-SSLeay": ensure => installed }
   package { "perl-libwww-perl": ensure => installed }

@@ -26,7 +26,7 @@ USERSTORE_SUFFIX=<%= scope.lookupvar('openam::userstore_suffix') %>
 USERSTORE_MGRDN=<%= scope.lookupvar('openam::userstore_binddn') %>
 USERSTORE_PASSWD=<%= scope.lookupvar('openam::userstore_bindpw') %>
 
-<% if scope.lookupvar('openam::master') == @fqdn %>
+<% if scope.lookupvar('openam::master') == @host %>
 LB_SITE_NAME=<%= @environment %>
 LB_PRIMARY_URL=<%= scope.lookupvar('openam::site_url') %>
 <% else %>

@@ -28,6 +28,7 @@ class openam(
   $server_port        = hiera('openam::server_port'),
   $site_url           = hiera('openam::site_url'),
   $server_protocol    = hiera('openam::server_protocol'),
+  $host               = hiera('openam::host', $fqdn),
   $ssoadm             = hiera('openam::ssoadm', '/usr/local/bin/ssoadm'),
 
   $userstore_suffix   = hiera('openam::userstore_suffix'),
