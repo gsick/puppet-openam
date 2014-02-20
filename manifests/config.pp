@@ -12,7 +12,7 @@
 #
 
 class openam::config {
-  $server_url = "${openam::server_protocol}://${host}:${openam::server_port}"
+  $server_url = "${openam::server_protocol}://${openam::host}:${openam::server_port}"
  
   package { "perl-Crypt-SSLeay": ensure => installed }
   package { "perl-libwww-perl": ensure => installed }
@@ -24,19 +24,19 @@ class openam::config {
     mode   => 755,
   }
  
-  # Contains passwords, thus (temporarily) stored in ${tmp}
-  file { "${tmp}/configurator.properties":
+  # Contains passwords, thus (temporarily) stored in ${openam::tmp}
+  file { "${openam::tmp}/configurator.properties":
     owner   => root,
     group   => root,
     mode    => 600,
     content => template("${module_name}/configurator.properties.erb"),
   }
 
-  file { "${tmp}/configurator.pl":
+  file { "${openam::tmp}/configurator.pl":
     owner   => root,
     group   => root,
     mode    => 700,
-    require => File["${tmp}/configurator.properties"], 
+    require => File["${openam::tmp}/configurator.properties"], 
     source  => "puppet:///modules/${module_name}/configurator.pl",
   }
 
@@ -47,9 +47,9 @@ class openam::config {
   }
 
   exec { "configure openam":
-    command => "${tmp}/configurator.pl -f ${tmp}/configurator.properties",
+    command => "${openam::tmp}/configurator.pl -f ${openam::tmp}/configurator.properties",
     require => [
-      File["${tmp}/configurator.pl"],
+      File["${openam::tmp}/configurator.pl"],
       File["${openam::config_dir}"],
       Package["perl-Crypt-SSLeay"],
       Package["perl-libwww-perl"]
