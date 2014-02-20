@@ -46,6 +46,7 @@ class openam(
   $userstore_suffix       = hiera('openam::userstore_suffix', 'opendj::base_dn'),
   $userstore_binddn       = hiera('openam::userstore_binddn', 'opendj::admin_user'),
   $userstore_bindpw       = hiera('openam::userstore_bindpw', 'opendj::admin_password'),
+  $tmp                    = hiera('openam::tmpdir', '/tmp'),
 
 ) {
 

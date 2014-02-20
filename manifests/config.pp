@@ -24,19 +24,19 @@ class openam::config {
     mode   => 755,
   }
  
-  # Contains passwords, thus (temporarily) stored in /dev/shm
-  file { "/dev/shm/configurator.properties":
+  # Contains passwords, thus (temporarily) stored in ${tmp}
+  file { "${tmp}/configurator.properties":
     owner   => root,
     group   => root,
     mode    => 600,
     content => template("${module_name}/configurator.properties.erb"),
   }
 
-  file { "/dev/shm/configurator.pl":
+  file { "${tmp}/configurator.pl":
     owner   => root,
     group   => root,
     mode    => 700,
-    require => File["/dev/shm/configurator.properties"], 
+    require => File["${tmp}/configurator.properties"], 
     source  => "puppet:///modules/${module_name}/configurator.pl",
   }
 
@@ -47,9 +47,9 @@ class openam::config {
   }
 
   exec { "configure openam":
-    command => "/dev/shm/configurator.pl -f /dev/shm/configurator.properties",
+    command => "${tmp}/configurator.pl -f ${tmp}/configurator.properties",
     require => [
-      File["/dev/shm/configurator.pl"],
+      File["${tmp}/configurator.pl"],
       File["${openam::config_dir}"],
       Package["perl-Crypt-SSLeay"],
       Package["perl-libwww-perl"]
