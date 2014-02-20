@@ -26,11 +26,11 @@ USERSTORE_SUFFIX=<%= scope.lookupvar('openam::userstore_suffix') %>
 USERSTORE_MGRDN=<%= scope.lookupvar('openam::userstore_binddn') %>
 USERSTORE_PASSWD=<%= scope.lookupvar('openam::userstore_bindpw') %>
 
-<% if scope.lookupvar('openam::site_url') %>
+<% if scope.lookupvar('openam::site_url') != '' %>
 LB_SITE_NAME=<%= @environment %>
 LB_PRIMARY_URL=<%= scope.lookupvar('openam::site_url') %>
 <% end %>
 
-<% if scope.lookupvar('openam::master') != scope.lookupvar('openam::host') %>
+<% if scope.lookupvar('openam::master') != '' and scope.lookupvar('openam::master') != scope.lookupvar('openam::host') %>
 existingserverid=<%= scope.lookupvar('openam::master') %>
 <% end %>
