@@ -15,8 +15,8 @@ The following parameters controls the initial configuration of OpenAM:
   * `java_home`: Java home
   * `tomcat_user`: The POSIX user running Tomcat
   * `tomcat_home`: The home directory for Tomcat
-  * `amadmin`: The OpenAM amadmin user password
-  * `amldapuser`: The OpenAM amldapuser password (can't be the same as amadmin)
+  * `amadmin_pwd`: The OpenAM amadmin user password
+  * `amldapuser_pwd`: The OpenAM amldapuser password (can't be the same as amadmin)
   * `deployment_uri`: The OpenAM deployment URI, e.g. `/sso`
   * `site_url`: The OpenAM site URL, e.g. `https://idp.example.com:443/sso`
   * `server_protocol`: The OpenAM server protocol, `http` or `https`

@@ -4,8 +4,8 @@ BASE_DIR=<%= scope.lookupvar('openam::config_dir') %>
 locale=<%= scope.lookupvar('openam::locale') %>
 PLATFORM_LOCALE=<%= scope.lookupvar('openam::locale') %>
 AM_ENC_KEY=<%= scope.lookupvar('openam::encryption_key') %>
-ADMIN_PWD=<%= scope.lookupvar('openam::amadmin') %>
-AMLDAPUSERPASSWD=<%= scope.lookupvar('openam::amldapuser') %>
+ADMIN_PWD=<%= scope.lookupvar('openam::amadmin_pwd') %>
+AMLDAPUSERPASSWD=<%= scope.lookupvar('openam::amldapuser_pwd') %>
 COOKIE_DOMAIN=<%= scope.lookupvar('openam::cookie_domain') %>
 
 DATA_STORE=dirServer

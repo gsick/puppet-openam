@@ -50,7 +50,7 @@ class openam::tools {
     group   => "${openam::tomcat_user}",
     mode    => 400,
     require => Exec["configure ssoadm"],
-    content => "${openam::amadmin}\n",
+    content => "${openam::amadmin_pwd}\n",
   }
 
   file { "${openam::ssoadm}":
