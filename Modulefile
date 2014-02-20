@@ -1,4 +1,4 @@
-name        'openam'
+name        'conduct-openam'
 version     '0.0.2'
 author      'Conduct AS'
 license     'Simplified BSD License'
