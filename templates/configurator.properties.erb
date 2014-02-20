@@ -1,4 +1,4 @@
-SERVER_URL=<%= server_url %>
+SERVER_URL=<%= @server_url %>
 DEPLOYMENT_URI=<%= scope.lookupvar('openam::deployment_uri') %>
 BASE_DIR=<%= scope.lookupvar('openam::config_dir') %>
 locale=<%= scope.lookupvar('openam::locale') %>
@@ -20,8 +20,8 @@ DS_DIRMGRPASSWD=<%= scope.lookupvar('openam::configstore_bindpw') %>
 
 USERSTORE_TYPE=<%= scope.lookupvar('openam::userstore_type') %>
 USERSTORE_SSL=<%= scope.lookupvar('openam::userstore_ssl') %>
-USERSTORE_HOST=<%= scope.lookupvar('opendj::host') %>
-USERSTORE_PORT=<%= scope.lookupvar('opendj::ldap_port') %>
+USERSTORE_HOST=<%= scope.lookupvar('openam::userstore_host') %>
+USERSTORE_PORT=<%= scope.lookupvar('openam::userstore_port') %>
 USERSTORE_SUFFIX=<%= scope.lookupvar('openam::userstore_suffix') %>
 USERSTORE_MGRDN=<%= scope.lookupvar('openam::userstore_binddn') %>
 USERSTORE_PASSWD=<%= scope.lookupvar('openam::userstore_bindpw') %>
