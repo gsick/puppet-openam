@@ -14,10 +14,10 @@
 class openam::deploy {
   $war = "openam_${openam::version}.war"
 
-  file { "${openam::tomcat_home}/webapps${openam::deployment_uri}.war":
+  file { "${openam::deploy_container_home}/webapps${openam::deployment_uri}.war":
     ensure => present,
-    owner  => "${openam::tomcat_user}",
-    group  => "${openam::tomcat_user}",
+    owner  => "${openam::deploy_container_user}",
+    group  => "${openam::deploy_container_group}",
     mode   => 0755,
     source => "puppet:///files/${module_name}/${environment}/${war}",
     notify => Service['tomcat-openam']

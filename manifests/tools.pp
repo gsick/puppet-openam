@@ -16,16 +16,16 @@ class openam::tools {
 
   file { "${openam::config_dir}/cli":
     ensure    => directory,
-    owner     => "${openam::tomcat_user}",
-    group     => "${openam::tomcat_user}",
+    owner     => "${openam::deploy_container_user}",
+    group     => "${openam::deploy_container_group}",
     mode      => 0755,
     require   => Exec["configure openam"],
   }
 
   file { "/var/tmp/ssoAdminTools_${openam::version}.zip":
     ensure => present,
-    owner  => "${openam::tomcat_user}",
-    group  => "${openam::tomcat_user}",
+    owner  => "${openam::deploy_container_user}",
+    group  => "${openam::deploy_container_group}",
     source => "puppet:///files/${module_name}/ssoAdminTools_${openam::version}.zip",
   }
 
@@ -46,8 +46,8 @@ class openam::tools {
 
   file { "${openam::config_dir}/.pass":
     ensure  => present,
-    owner   => "${openam::tomcat_user}",
-    group   => "${openam::tomcat_user}",
+    owner   => "${openam::deploy_container_user}",
+    group   => "${openam::deploy_container_group}",
     mode    => 400,
     require => Exec["configure ssoadm"],
     content => "${openam::amadmin_pwd}\n",

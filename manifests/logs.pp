@@ -17,8 +17,8 @@ class openam::logs {
            "${openam::log_dir}/debug",
            "${openam::log_dir}/stats" ]:
     ensure  => directory,
-    owner   => "${openam::tomcat_user}",
-    group   => "${openam::tomcat_user}",
+    owner   => "${openam::deploy_container_user}",
+    group   => "${openam::deploy_container_group}",
     mode    => 700,
   }
 

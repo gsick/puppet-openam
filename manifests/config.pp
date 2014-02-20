@@ -17,10 +17,10 @@ class openam::config {
   package { "perl-Crypt-SSLeay": ensure => installed }
   package { "perl-libwww-perl": ensure => installed }
   
-  file { "${openam::tomcat_home}/.openamcfg":
+  file { "${openam::deploy_container_home}/.openamcfg":
     ensure => directory,
-    owner  => "${openam::tomcat_user}",
-    group  => "${openam::tomcat_user}",
+    owner  => "${openam::deploy_container_user}",
+    group  => "${openam::deploy_container_group}",
     mode   => 755,
   }
  
@@ -42,8 +42,8 @@ class openam::config {
 
   file { "${openam::config_dir}":
     ensure => directory,
-    owner  => "${openam::tomcat_user}",
-    group  => "${openam::tomcat_user}",
+    owner  => "${openam::deploy_container_user}",
+    group  => "${openam::deploy_container_group}",
   }
 
   exec { "configure openam":

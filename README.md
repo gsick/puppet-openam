@@ -13,8 +13,9 @@ The following parameters controls the initial configuration of OpenAM:
 
   * `version`: The OpenAM version number
   * `java_home`: Java home
-  * `tomcat_user`: The POSIX user running Tomcat
-  * `tomcat_home`: The home directory for Tomcat
+  * `deploy_container_user`: The POSIX user running the deployement container
+  * `deploy_container_group`: The POSIX group running the deployement container
+  * `deploy_container_home`: The home directory for the deployement container
   * `amadmin_pwd`: The OpenAM amadmin user password
   * `amldapuser_pwd`: The OpenAM amldapuser password (can't be the same as amadmin) used for agent
   * `deployment_uri`: The OpenAM deployment URI, e.g. `/sso`
