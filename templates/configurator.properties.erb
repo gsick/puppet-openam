@@ -8,27 +8,29 @@ ADMIN_PWD=<%= scope.lookupvar('openam::amadmin_pwd') %>
 AMLDAPUSERPASSWD=<%= scope.lookupvar('openam::amldapuser_pwd') %>
 COOKIE_DOMAIN=<%= scope.lookupvar('openam::cookie_domain') %>
 
-DATA_STORE=dirServer
-DIRECTORY_SSL=SIMPLE
-DIRECTORY_SERVER=<%= scope.lookupvar('opendj::host') %>
-DIRECTORY_PORT=<%= scope.lookupvar('opendj::ldap_port') %>
-DIRECTORY_ADMIN_PORT=<%= scope.lookupvar('opendj::admin_port') %>
-DIRECTORY_JMX_PORT=<%= scope.lookupvar('opendj::jmx_port') %>
+DATA_STORE=<%= scope.lookupvar('openam::configstore_type') %>
+DIRECTORY_SSL=<%= scope.lookupvar('openam::configstore_ssl') %>
+DIRECTORY_SERVER=<%= scope.lookupvar('openam::configstore_server') %>
+DIRECTORY_PORT=<%= scope.lookupvar('openam::configstore_port') %>
+DIRECTORY_ADMIN_PORT=<%= scope.lookupvar('openam::configstore_admin_port') %>
+DIRECTORY_JMX_PORT=<%= scope.lookupvar('openam::configstore_jmx_port') %>
 ROOT_SUFFIX=<%= scope.lookupvar('openam::configstore_suffix') %>
 DS_DIRMGRDN=<%= scope.lookupvar('openam::configstore_binddn') %>
 DS_DIRMGRPASSWD=<%= scope.lookupvar('openam::configstore_bindpw') %>
 
-USERSTORE_TYPE=LDAPv3ForOpenDS
-USERSTORE_SSL=SIMPLE
+USERSTORE_TYPE=<%= scope.lookupvar('openam::userstore_type') %>
+USERSTORE_SSL=<%= scope.lookupvar('openam::userstore_ssl') %>
 USERSTORE_HOST=<%= scope.lookupvar('opendj::host') %>
 USERSTORE_PORT=<%= scope.lookupvar('opendj::ldap_port') %>
 USERSTORE_SUFFIX=<%= scope.lookupvar('openam::userstore_suffix') %>
 USERSTORE_MGRDN=<%= scope.lookupvar('openam::userstore_binddn') %>
 USERSTORE_PASSWD=<%= scope.lookupvar('openam::userstore_bindpw') %>
 
-<% if scope.lookupvar('openam::master') == @host %>
+<% if scope.lookupvar('openam::site_url') %>
 LB_SITE_NAME=<%= @environment %>
 LB_PRIMARY_URL=<%= scope.lookupvar('openam::site_url') %>
-<% else %>
+<% end %>
+
+<% if scope.lookupvar('openam::master') != scope.lookupvar('openam::host') %>
 existingserverid=<%= scope.lookupvar('openam::master') %>
 <% end %>
