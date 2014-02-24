@@ -20,6 +20,6 @@ class openam::deploy {
     group  => "${openam::deploy_container_group}",
     mode   => 0755,
     source => "puppet:///files/${module_name}/${environment}/${war}",
-    notify => Service['tomcat-openam']
+    notify => Service[${deploy_container_service}],
   }
 }
