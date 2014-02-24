@@ -37,7 +37,7 @@ class openam(
   $configstore_port       = hiera('openam::configstore_port', hiera('opendj::ldap_port')),
   $configstore_admin_port = hiera('openam::configstore_admin_port', hiera('opendj::admin_port')),
   $configstore_jmx_port   = hiera('openam::configstore_jmx_port', hiera('opendj::jmx_port')),
-  $configstore_suffix     = hiera('openam::configstore_suffix', "o=openam"),
+  $configstore_suffix     = hiera('openam::configstore_suffix', "dc=openam,dc=forgerock,dc=org"),
   $configstore_binddn     = hiera('openam::configstore_binddn', "cn=Directory Manager"),
   $configstore_bindpw     = hiera('openam::configstore_bindpw'),
   $userstore_type         = hiera('openam::userstore_type', "LDAPv3ForOpenDS"),
@@ -51,6 +51,7 @@ class openam(
 
 ) {
 
+  include java
   include openam::deploy
   include openam::config
   include openam::logs
