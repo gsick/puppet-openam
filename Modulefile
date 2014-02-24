@@ -7,4 +7,4 @@ description 'Module for deployment and configuration of ForgeRock OpenAM'
 #TODO break librarian
 
 #dependency  'opendj', '>= 0.0.1'
-dependency  'java', '>= 1.0.1'
+dependency  'puppetlabs/java', '>= 1.0.1'
