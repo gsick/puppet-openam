@@ -8,3 +8,4 @@ description 'Module for deployment and configuration of ForgeRock OpenAM'
 
 #dependency  'opendj', '>= 0.0.1'
 dependency  'puppetlabs/java', '>= 1.0.1'
+dependency   'pdxcat/singleton', '>= 0.0.4'

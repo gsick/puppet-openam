@@ -12,7 +12,7 @@
 #
 class openam::tools {
 
-  package { 'unzip': ensure => present }
+  singleton_packages("unzip")
 
   file { "${openam::config_dir}/cli":
     ensure    => directory,
