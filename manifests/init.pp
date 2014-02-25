@@ -53,13 +53,12 @@ class openam(
 ) {
 
   require java
-  include openam::deploy
-  include openam::config
-  include openam::logs
-  include openam::tools
 
-  Class['opendj'] 	     -> Class['openam::deploy']
-  Class['openam::deploy']    -> Class['openam::config']
-  Class['openam::config']    -> Class['openam::logs']
-  Class['openam::logs']      -> Class['openam::tools']
+  class {'openam::deploy':}
+  ->
+  class {'openam::config':}
+  ->
+  class {'openam::logs':}
+  ->
+  class {'openam::tools':}
 }

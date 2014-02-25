@@ -12,11 +12,12 @@
 #
 
 class openam::deploy {
-  $war = "openam_${openam::version}.war"
-  $source = "puppet:///files/${module_name}/${environment}/${war}"
+  $war = "OpenAM-${openam::version}.war"
+  #$source = "puppet:///files/${module_name}/${environment}/${war}"
+  $source = "/tmp/openam/${war}"
 
-  case $deploy_container_type {
-    'jetty':    { class {'jetty::deploy': source => ${source}, war => ${war}} }
-    'tomcat':   { class {'openam::deploy::tomcat': source => ${source}} }
+  case $openam::deploy_container_type {
+    'jetty':    { class {'jetty::deploy': source => ${source}, war => ${openam.war}} }
+    'tomcat':   { class {'openam::deploy::tomcat': source => "puppet:///files/${module_name}/${environment}/${war}"} }
   }
 }
