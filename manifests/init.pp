@@ -52,7 +52,7 @@ class openam(
 
 ) {
 
-  include java
+  require java
   include openam::deploy
   include openam::config
   include openam::logs
