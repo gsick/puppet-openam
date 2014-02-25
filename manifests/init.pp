@@ -18,7 +18,7 @@ class openam(
   $deploy_container_user    = hiera('openam::deploy_container_user'),
   $deploy_container_group   = hiera('openam::deploy_container_group'),
   $deploy_container_home    = hiera('openam::deploy_container_home'),
-  $deploy_container_service = hiera('openam::deploy_container_service', 'tomcat-openam'),
+  $deploy_container_type    = hiera('openam::deploy_container_type', 'tomcat'),
   $amadmin_pwd              = hiera('openam::amadmin_pwd'),
   $amldapuser_pwd           = hiera('openam::amldapuser_pwd'),
   $config_dir               = hiera('openam::config_dir'),

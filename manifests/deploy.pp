@@ -13,13 +13,10 @@
 
 class openam::deploy {
   $war = "openam_${openam::version}.war"
+  $source = "puppet:///files/${module_name}/${environment}/${war}"
 
-  file { "${openam::deploy_container_home}/webapps${openam::deployment_uri}.war":
-    ensure => present,
-    owner  => "${openam::deploy_container_user}",
-    group  => "${openam::deploy_container_group}",
-    mode   => 0755,
-    source => "puppet:///files/${module_name}/${environment}/${war}",
-    notify => Service[${deploy_container_service}],
+  case $deploy_container_type {
+    'jetty':    { Class {'jetty::deploy': $source => "puppet:///files/${module_name}/${environment}/${war}", $war => $war} }
+    'tomcat':   { include openam::deploy::tomcat }
   }
 }
