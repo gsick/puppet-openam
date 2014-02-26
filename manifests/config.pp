@@ -40,6 +40,5 @@ class openam::config {
       Package["perl-Crypt-SSLeay", "perl-libwww-perl"],
     ],
     creates => "${openam::config_dir}/bootstrap",
-    notify => Service["tomcat-openam"],
   }
 }
