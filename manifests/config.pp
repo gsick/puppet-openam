@@ -41,4 +41,9 @@ class openam::config {
     ],
     creates => "${openam::config_dir}/bootstrap",
   }
+  
+  file { ["${openam::tmp}/configurator.pl", "${openam::tmp}/configurator.properties"]:
+    ensure => absent,
+    require => Exec["configure openam"],
+  }
 }
