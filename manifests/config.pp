@@ -36,7 +36,7 @@ class openam::config {
   exec { "configure openam":
     command => "${openam::tmp}/configurator.pl -f ${openam::tmp}/configurator.properties",
     require => [
-      File["${openam::tmp}/configurator.pl"],
+      File["${openam::tmp}/configurator.pl", "${openam::deploy_container_home}/webapps/${openam::deployment_uri}.war"],
       Package["perl-Crypt-SSLeay", "perl-libwww-perl"],
     ],
     creates => "${openam::config_dir}/bootstrap",
@@ -44,7 +44,7 @@ class openam::config {
 
   exec { "remove configurator temp file":
     cwd => ${openam::tmp},
-    command => "rm -rf configurator.pl configurator.properties",
+    command => "\bin\rm -rf configurator.pl configurator.properties",
     require => Exec["configure openam"],
   }
 }
