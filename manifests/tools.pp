@@ -14,40 +14,37 @@ class openam::tools {
 
   singleton_packages("unzip")
 
-  file { "${openam::config_dir}/cli":
+  file { "${openam::tools_dir}":
     ensure    => directory,
-    owner     => "${openam::deploy_container_user}",
-    group     => "${openam::deploy_container_group}",
     mode      => 0755,
     require   => Exec["configure openam"],
   }
 
-  file { "/var/tmp/ssoAdminTools_${openam::version}.zip":
+  file { "${openam::tmp}/SSOAdminTools-${openam::version}.zip":
     ensure => present,
-    owner  => "${openam::deploy_container_user}",
-    group  => "${openam::deploy_container_group}",
-    source => "puppet:///files/${module_name}/ssoAdminTools_${openam::version}.zip",
+    source => "${openam::file_source_dir}/SSOAdminTools-${openam::version}.zip",
   }
 
   exec { "deploy ssoadm":
-    cwd     => '/var/tmp',
-    creates => "${openam::config_dir}/cli/setup",
-    require => [ Exec["configure openam"], File["${openam::config_dir}/cli"], Package['unzip'] ],
-    command => "/usr/bin/unzip ssoAdminTools_${openam::version}.zip -d ${openam::config_dir}/cli/",
+    cwd     => "${openam::tmp}",
+    creates => "${openam::tools_dir}/setup",
+    require => [ Exec["configure openam"], 
+                 File["${openam::tools_dir}", "${openam::tmp}/SSOAdminTools-${openam::version}.zip"], 
+                 Package['unzip']
+               ],
+    command => "/usr/bin/unzip SSOAdminTools-${openam::version}.zip -d ${openam::tools_dir}/",
   }
 
   exec { "configure ssoadm":
-    cwd         => "${openam::config_dir}/cli",
-    creates     => "${openam::config_dir}/cli/${openam::deployment_uri}",
+    cwd         => "${openam::tools_dir}",
+    creates     => "${openam::tools_dir}/${openam::deployment_uri}",
     environment => "JAVA_HOME=${openam::java_home}",
-    command     => "${openam::config_dir}/cli/setup -p ${openam::config_dir} -d ${openam::log_dir}/debug -l ${openam::log_dir}/logs",
+    command     => "${openam::tools_dir}/setup -p ${openam::config_dir} -d ${openam::log_dir}/debug -l ${openam::log_dir}/logs",
     require     => Exec["deploy ssoadm"],
   }
 
-  file { "${openam::config_dir}/.pass":
+  file { "${openam::tools_dir}/.pass":
     ensure  => present,
-    owner   => "${openam::deploy_container_user}",
-    group   => "${openam::deploy_container_group}",
     mode    => 400,
     require => Exec["configure ssoadm"],
     content => "${openam::amadmin_pwd}\n",
@@ -58,7 +55,7 @@ class openam::tools {
     owner   => root,
     group   => root,
     mode    => 700,
-    content => "#!/bin/bash\nexport JAVA_HOME=${openam::java_home}\ncommand=\$1\nshift;\n${openam::config_dir}/cli/${openam::deployment_uri}/bin/ssoadm \$command -u amadmin -f ${openam::config_dir}/.pass \$@",
-    require => File["${openam::config_dir}/.pass"],
+    content => "#!/bin/bash\nexport JAVA_HOME=${openam::java_home}\ncommand=\$1\nshift;\n${openam::tools_dir}/${openam::deployment_uri}/bin/ssoadm \$command -u amadmin -f ${openam::tools_dir}/.pass \$@",
+    require => File["${openam::tools_dir}/.pass"],
   }
 }

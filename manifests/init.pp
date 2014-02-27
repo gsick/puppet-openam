@@ -49,7 +49,8 @@ class openam(
   $userstore_binddn         = hiera('openam::userstore_binddn', hiera('opendj::admin_user')),
   $userstore_bindpw         = hiera('openam::userstore_bindpw', hiera('opendj::admin_password')),
   $tmp                      = hiera('openam::tmpdir', '/tmp'),
-  $tools_dir                = hiera('openam::tools_dir', hiera('openam::config_dir')),
+  $tools_dir                = hiera('openam::tools_dir', hiera('openam::config_dir')/cli),
+  $file_source_dir          = hiera('openam::file_source_dir', "puppet:///files/${module_name}/ssoAdminTools_${openam::version}.zip"),
 
 ) {
 
