@@ -17,7 +17,7 @@ class openam::deploy {
   $source = "/tmp/openam/${war}"
 
   case $openam::deploy_container_type {
-    'jetty':    { class {'jetty::deploy': source => ${source}, war => ${openam.war}} }
-    'tomcat':   { class {'openam::deploy::tomcat': source => "puppet:///files/${module_name}/${environment}/${war}"} }
+    'jetty':    { class {'jetty::deploy': source => ${openam::deploy::source}, war => ${openam::deployment_uri}.war} }
+    'tomcat':   { class {'openam::deploy::tomcat': war => ${war}} }
   }
 }

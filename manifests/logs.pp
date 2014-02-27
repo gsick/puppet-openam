@@ -12,6 +12,10 @@
 #
 class openam::logs {
 
+  service { 'jetty':
+    ensure => "stopped",
+  }
+
   file { [ "${openam::log_dir}",
            "${openam::log_dir}/logs",
            "${openam::log_dir}/debug",
@@ -26,21 +30,22 @@ class openam::logs {
   # configured log directory, usually this would be /var/log/openam or
   # another directory on a partition with sufficient free disk space.
 
-  file { "${openam::config_dir}${openam::deployment_uri}/logs":
+  file { "${openam::config_dir}/${openam::deployment_uri}/logs":
     ensure    => link,
     target    => "${openam::log_dir}/logs",
     require   => File["${openam::log_dir}/logs"],
     force     => true,
+    notify    =>
   }
 
-  file { "${openam::config_dir}${openam::deployment_uri}/debug":
+  file { "${openam::config_dir}/${openam::deployment_uri}/debug":
     ensure    => link,
     target    => "${openam::log_dir}/debug",
     require   => File["${openam::log_dir}/debug"],
     force     => true,
   }
 
-  file { "${openam::config_dir}${openam::deployment_uri}/stats":
+  file { "${openam::config_dir}/${openam::deployment_uri}/stats":
     ensure    => link,
     target    => "${openam::log_dir}/stats",
     require   => File["${openam::log_dir}/stats"],

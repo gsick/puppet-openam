@@ -23,8 +23,8 @@ class openam(
   $amldapuser_pwd           = hiera('openam::amldapuser_pwd'),
   $config_dir               = hiera('openam::config_dir'),
   $cookie_domain            = hiera('openam::cookie_domain'),
-  $log_dir                  = hiera('openam::log_dir'),
-  $deployment_uri           = hiera('openam::deployment_uri'),
+  $log_dir                  = hiera('openam::log_dir', '/var/log/openam'),
+  $deployment_uri           = hiera('openam::deployment_uri', 'openam'),
   $locale                   = hiera('openam::locale', 'en_US'),
   $encryption_key           = hiera('openam::encryption_key'),
   $server_port              = hiera('openam::server_port'),
@@ -49,6 +49,7 @@ class openam(
   $userstore_binddn         = hiera('openam::userstore_binddn', hiera('opendj::admin_user')),
   $userstore_bindpw         = hiera('openam::userstore_bindpw', hiera('opendj::admin_password')),
   $tmp                      = hiera('openam::tmpdir', '/tmp'),
+  $tools_dir                = hiera('openam::tools_dir', hiera('openam::config_dir')),
 
 ) {
 

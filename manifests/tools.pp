@@ -38,7 +38,7 @@ class openam::tools {
 
   exec { "configure ssoadm":
     cwd         => "${openam::config_dir}/cli",
-    creates     => "${openam::config_dir}/cli${openam::deployment_uri}",
+    creates     => "${openam::config_dir}/cli/${openam::deployment_uri}",
     environment => "JAVA_HOME=${openam::java_home}",
     command     => "${openam::config_dir}/cli/setup -p ${openam::config_dir} -d ${openam::log_dir}/debug -l ${openam::log_dir}/logs",
     require     => Exec["deploy ssoadm"],
@@ -58,7 +58,7 @@ class openam::tools {
     owner   => root,
     group   => root,
     mode    => 700,
-    content => "#!/bin/bash\nexport JAVA_HOME=${openam::java_home}\ncommand=\$1\nshift;\n${openam::config_dir}/cli${openam::deployment_uri}/bin/ssoadm \$command -u amadmin -f ${openam::config_dir}/.pass \$@",
+    content => "#!/bin/bash\nexport JAVA_HOME=${openam::java_home}\ncommand=\$1\nshift;\n${openam::config_dir}/cli/${openam::deployment_uri}/bin/ssoadm \$command -u amadmin -f ${openam::config_dir}/.pass \$@",
     require => File["${openam::config_dir}/.pass"],
   }
 }
