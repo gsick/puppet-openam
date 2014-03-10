@@ -14,37 +14,36 @@
 class openam::config {
   $server_url = "${openam::server_protocol}://${openam::host}:${openam::server_port}"
 
-  package { "perl-Crypt-SSLeay": ensure => installed }
-  package { "perl-libwww-perl": ensure => installed }
+  singleton_packages("perl-Crypt-SSLeay", "perl-libwww-perl")
 
-  # Contains passwords, thus (temporarily) stored in ${openam::tmp}
-  file { "${openam::tmp}/configurator.properties":
+  # Contains passwords, thus (temporarily) stored in ${openam::tmpdir}
+  file { "${openam::tmpdir}/configurator.properties":
     owner   => root,
     group   => root,
     mode    => 600,
     content => template("${module_name}/configurator.properties.erb"),
   }
 
-  file { "${openam::tmp}/configurator.pl":
+  file { "${openam::tmpdir}/configurator.pl":
     owner   => root,
     group   => root,
     mode    => 700,
-    require => File["${openam::tmp}/configurator.properties"], 
+    require => File["${openam::tmpdir}/configurator.properties"], 
     source  => "puppet:///modules/${module_name}/configurator.pl",
   }
 
   exec { "configure openam":
-    command => "${openam::tmp}/configurator.pl -f ${openam::tmp}/configurator.properties",
+    command => "${openam::tmpdir}/configurator.pl -f ${openam::tmpdir}/configurator.properties",
     require => [
-      File["${openam::tmp}/configurator.pl", "${openam::deploy_container_home}/webapps/${openam::deployment_uri}.war"],
+      File["${openam::tmpdir}/configurator.pl", "${openam::deploy_container_home}/webapps/${openam::deployment_uri}.war"],
       Package["perl-Crypt-SSLeay", "perl-libwww-perl"],
     ],
     creates => "${openam::config_dir}/bootstrap",
   }
 
   exec { "remove configurator temp file":
-    cwd => ${openam::tmp},
-    command => "\bin\rm -rf configurator.pl configurator.properties",
+    cwd => "${openam::tmpdir}",
+    command => "/bin/rm -rf configurator.pl configurator.properties",
     require => Exec["configure openam"],
   }
 }
