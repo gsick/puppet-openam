@@ -47,7 +47,7 @@ sub configurator {
 
   $options->{'ADMIN_CONFIRM_PWD'} = $options->{'ADMIN_PWD'};
   $options->{'AMLDAPUSERPASSWD_CONFIRM'}  = $options->{'AMLDAPUSERPASSWD'};
-  $options->{'acceptLicense'}  = $options->{'true'};
+  $options->{'acceptLicense'}  = 'true';
 
   my $configurator = $options->{'SERVER_URL'} . $options->{'DEPLOYMENT_URI'} . '/config/configurator';
 
