@@ -20,16 +20,16 @@ class openam::tools {
     require   => Exec["configure openam"],
   }
 
-  file { "${openam::tmp}/SSOAdminTools-${openam::version}.zip":
+  file { "${openam::tmp_dir}/SSOAdminTools-${openam::version}.zip":
     ensure => present,
     source => "${openam::file_source_dir}/SSOAdminTools-${openam::version}.zip",
   }
 
   exec { "deploy ssoadm":
-    cwd     => "${openam::tmp}",
+    cwd     => "${openam::tmp_dir}",
     creates => "${openam::tools_dir}/setup",
     require => [ Exec["configure openam"], 
-                 File["${openam::tools_dir}", "${openam::tmp}/SSOAdminTools-${openam::version}.zip"], 
+                 File["${openam::tools_dir}", "${openam::tmp_dir}/SSOAdminTools-${openam::version}.zip"], 
                  Package['unzip']
                ],
     command => "/usr/bin/unzip SSOAdminTools-${openam::version}.zip -d ${openam::tools_dir}/",

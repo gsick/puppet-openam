@@ -12,7 +12,16 @@
 #
 class openam::logs {
 
-  service { 'jetty':
+  case $openam::deploy_container_type {
+    'jetty':    { $web_container_service = 'jetty' }
+    'tomcat':   { $web_container_service = 'tomcat-openam' }
+  }
+  service { 'web_container':
+    #name => $openam::deploy_container_type ? {
+    #          'jetty' => 'jetty',
+    #          'tomcat' => 'tomcat-openam',
+    #        },
+    name => $web_container_service,
     ensure => "stopped",
   }
 
