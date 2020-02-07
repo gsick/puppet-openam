@@ -1,0 +1,14 @@
+#!/bin/sh
+
+rm -rf <%= scope.lookupvar('openam::config_dir') %>
+## TODO false
+rm -rf <%= scope.lookupvar('openam::deploy_container_home') %>/.openssocfg
+
+rpm -e openam-tools openam 
+rpm -e apache-tomcat emv-openam-conf
+
+rm -rf /opt/openam-tools*
+
+rm -rf /tmp/conf/
+rm -f /tmp/*.log
+rm -rf /var/log/tomcat/*
